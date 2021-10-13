@@ -7,6 +7,8 @@
 #include "mmu.h"
 #include "proc.h"
 
+//extern int readCount;
+
 int
 sys_fork(void)
 {
@@ -88,4 +90,17 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+
+int
+sys_getProcCount(void)
+{
+  return getProcCount();
+} 
+
+int
+sys_getReadCount(void)
+{
+  return getReadCount();
 }

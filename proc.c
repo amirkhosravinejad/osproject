@@ -532,3 +532,28 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+// returns number of processes which are not unused in cpu
+int
+getProcCount(void)
+{
+  int procCounter = 0;
+  // acquire the lock on ptable 
+  acquire(&ptable.lock);
+  // loop through the ptable to check all of processes
+  for(struct proc * p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    // check if the state of current process is not unused 
+    if (p-> state != UNUSED){
+      //cprintf("%s\n", p->state);
+      procCounter++;
+    }
+  }
+  release(&ptable.lock);
+  return procCounter + 1;
+}
+
+int
+getReadCount(void)
+{
+  return readCount;
+}
