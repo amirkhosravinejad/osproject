@@ -82,6 +82,8 @@ argstr(int n, char **pp)
   return fetchstr(addr, pp);
 }
 
+int readCount = 0;
+
 extern int sys_chdir(void);
 extern int sys_close(void);
 extern int sys_dup(void);
@@ -139,6 +141,11 @@ syscall(void)
   struct proc *curproc = myproc();
 
   num = curproc->tf->eax;
+  // checking if the system call number is equal to sys_read 
+  // and if it is, the readCount increases by 1
+  if (num == SYS_read){
+    curproc->readCount = readCount;
+  }
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
   } else {

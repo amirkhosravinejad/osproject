@@ -88,7 +88,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-
+  p->readCount = 0;
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -555,5 +555,5 @@ getProcCount(void)
 int
 getReadCount(void)
 {
-  return readCount;
+  return myproc()->readCount;
 }

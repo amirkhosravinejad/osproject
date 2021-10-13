@@ -16,7 +16,7 @@
 #include "file.h"
 #include "fcntl.h"
 
-readCount = 0;
+// readCount = 0;
 
 // Fetch the nth word-sized system call argument as a file descriptor
 // and return both the descriptor and the corresponding struct file.
@@ -71,7 +71,7 @@ sys_dup(void)
 int
 sys_read(void)
 {
-  readCount++;
+  //readCount++;
   struct file *f;
   int n;
   char *p;
