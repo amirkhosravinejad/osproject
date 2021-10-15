@@ -50,7 +50,7 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
-  int readCount;               // counts how many times 'read' system call is called
+  int readCount;               // counts how many times 'read' system call is called(new attribute added)
 };
 
 // Process memory is laid out contiguously, low addresses first:

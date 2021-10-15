@@ -549,11 +549,16 @@ getProcCount(void)
     }
   }
   release(&ptable.lock);
-  return procCounter + 1;
+  return procCounter;
 }
 
 int
 getReadCount(void)
 {
-  return myproc()->readCount;
+  int Read_Count_all = 0;
+  for(struct proc * p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    // check if the state of current process is not unused 
+    Read_Count_all += p->readCount;
+  }
+  return Read_Count_all;
 }

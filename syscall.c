@@ -143,8 +143,8 @@ syscall(void)
   num = curproc->tf->eax;
   // checking if the system call number is equal to sys_read 
   // and if it is, the readCount increases by 1
-  if (num == SYS_read){
-    curproc->readCount = readCount;
+  if (num == SYS_read){    
+    curproc->readCount++;
   }
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
