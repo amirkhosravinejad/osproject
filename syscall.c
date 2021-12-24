@@ -105,11 +105,16 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
+<<<<<<< HEAD
 // new system calls
 extern int sys_getProcCount(void);
 extern int sys_getReadCount(void);
 extern int sys_threadCreate(void);
 extern int sys_threadWait(void);
+=======
+extern int sys_getProcCount(void);
+extern int sys_getReadCount(void);
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -133,11 +138,16 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+<<<<<<< HEAD
 // new system calls
 [SYS_getProcCount] sys_getProcCount,
 [SYS_getReadCount] sys_getReadCount,
 [SYS_threadCreate] sys_threadCreate,
 [SYS_threadWait] sys_threadWait,
+=======
+[SYS_getProcCount] sys_getProcCount,
+[SYS_getReadCount] sys_getReadCount,
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 };
 
 void

@@ -30,6 +30,10 @@ SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(getProcCount)
+<<<<<<< HEAD
 SYSCALL(getReadCount)
 SYSCALL(threadCreate)
 SYSCALL(threadWait)
+=======
+SYSCALL(getReadCount)
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516

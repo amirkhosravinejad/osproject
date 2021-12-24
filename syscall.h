@@ -20,8 +20,13 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
+<<<<<<< HEAD
 // new system calls
 #define SYS_getProcCount 22
 #define SYS_getReadCount 23
 #define SYS_threadCreate 24
 #define SYS_threadWait 25
+=======
+#define SYS_getProcCount 22
+#define SYS_getReadCount 23
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516

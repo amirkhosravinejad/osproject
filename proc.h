@@ -7,13 +7,17 @@ struct cpu {
   volatile uint started;       // Has the CPU started?
   int ncli;                    // Depth of pushcli nesting.
   int intena;                  // Were interrupts enabled before pushcli?
+<<<<<<< HEAD
   // pointer to current cpu
   //struct cpu * cpu;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   struct proc *proc;           // The process running on this cpu or null
 };
 
 extern struct cpu cpus[NCPU];
 extern int ncpu;
+<<<<<<< HEAD
 
 // Per-CPU variables, holding pointers to the
 // current cpu and to the current process.
@@ -25,6 +29,9 @@ extern int ncpu;
 // in thread libraries such as Linux pthreads.
 //extern struct cpu *cpu asm("%gs:0");       // &cpus[cpunum()]
 //extern struct proc *proc asm("%gs:4");     // cpus[cpunum()].proc
+=======
+//extern int readCount;
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 
 //PAGEBREAK: 17
 // Saved registers for kernel context switches.
@@ -51,8 +58,11 @@ enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 struct proc {
   uint sz;                     // Size of process memory (bytes)
   pde_t* pgdir;                // Page table
+<<<<<<< HEAD
   uint stacktop;                // top of the stack
   int threads;                 // number of threads the process has
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   char *kstack;                // Bottom of kernel stack for this process
   enum procstate state;        // Process state
   int pid;                     // Process ID
@@ -64,9 +74,13 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+<<<<<<< HEAD
   // new attributes for process
   int readCount;               // counts how many times 'read' system call is called(new attribute added)
   //void * stack;                // pointer to the stack for each thread
+=======
+  int readCount;               // counts how many times 'read' system call is called(new attribute added)
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 };
 
 // Process memory is laid out contiguously, low addresses first:

@@ -99,7 +99,10 @@ exec(char *path, char **argv)
   curproc->sz = sz;
   curproc->tf->eip = elf.entry;  // main
   curproc->tf->esp = sp;
+<<<<<<< HEAD
   curproc->stacktop = sp;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   switchuvm(curproc);
   freevm(oldpgdir);
   return 0;

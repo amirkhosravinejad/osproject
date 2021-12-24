@@ -6,8 +6,11 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+<<<<<<< HEAD
 //#include "umalloc.c"
 //#include <stdlib.h>
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 
 //extern int readCount;
 
@@ -105,6 +108,7 @@ int
 sys_getReadCount(void)
 {
   return getReadCount();
+<<<<<<< HEAD
 }
 
 // threadCreator as a systemcall and gets
@@ -177,4 +181,6 @@ int
 sys_threadWait(void) {
   //cprintf("inside sys_join %d\n", (uint)(*(char**)stack));
 	return threadWait();
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 }

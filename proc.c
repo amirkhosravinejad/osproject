@@ -14,11 +14,14 @@ struct {
 
 static struct proc *initproc;
 
+<<<<<<< HEAD
 // cause thread parent and child use the same pgdir
 // when we wanna extend or shrink it, it has to run atomic
 // so we define an spinlock for each thread
 struct spinlock thread;
 
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
@@ -29,7 +32,10 @@ void
 pinit(void)
 {
   initlock(&ptable.lock, "ptable");
+<<<<<<< HEAD
   initlock(&thread, "thread");
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 }
 
 // Must be called with interrupts disabled
@@ -95,8 +101,11 @@ found:
   p->state = EMBRYO;
   p->pid = nextpid++;
   p->readCount = 0;
+<<<<<<< HEAD
   p->stacktop = -1;
   p->threads = -1;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   release(&ptable.lock);
 
   // Allocate kernel stack.
@@ -138,7 +147,10 @@ userinit(void)
     panic("userinit: out of memory?");
   inituvm(p->pgdir, _binary_initcode_start, (int)_binary_initcode_size);
   p->sz = PGSIZE;
+<<<<<<< HEAD
   p->threads = 1;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   memset(p->tf, 0, sizeof(*p->tf));
   p->tf->cs = (SEG_UCODE << 3) | DPL_USER;
   p->tf->ds = (SEG_UDATA << 3) | DPL_USER;
@@ -147,7 +159,11 @@ userinit(void)
   p->tf->eflags = FL_IF;
   p->tf->esp = PGSIZE;
   p->tf->eip = 0;  // beginning of initcode.S
+<<<<<<< HEAD
   p->stacktop = PGSIZE;
+=======
+
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   safestrcpy(p->name, "initcode", sizeof(p->name));
   p->cwd = namei("/");
 
@@ -170,6 +186,7 @@ growproc(int n)
   uint sz;
   struct proc *curproc = myproc();
 
+<<<<<<< HEAD
   acquire(&thread);
   sz = curproc->sz;
   if(n > 0){
@@ -238,6 +255,17 @@ growproc(int n)
 
   release(&ptable.lock);
   release(&thread);
+=======
+  sz = curproc->sz;
+  if(n > 0){
+    if((sz = allocuvm(curproc->pgdir, sz, sz + n)) == 0)
+      return -1;
+  } else if(n < 0){
+    if((sz = deallocuvm(curproc->pgdir, sz, sz + n)) == 0)
+      return -1;
+  }
+  curproc->sz = sz;
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   switchuvm(curproc);
   return 0;
 }
@@ -265,8 +293,11 @@ fork(void)
     return -1;
   }
   np->sz = curproc->sz;
+<<<<<<< HEAD
   np->stacktop = curproc->stacktop;
   np->threads = 1;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   np->parent = curproc;
   *np->tf = *curproc->tf;
 
@@ -279,7 +310,11 @@ fork(void)
   np->cwd = idup(curproc->cwd);
 
   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
   pid = np->pid;
 
   acquire(&ptable.lock);
@@ -318,9 +353,12 @@ exit(void)
   curproc->cwd = 0;
 
   acquire(&ptable.lock);
+<<<<<<< HEAD
   // child exits, so number of child threads decreases by one
   if (curproc->threads == -1)
     curproc->parent->threads--;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 
   // Parent might be sleeping in wait().
   wakeup1(curproc->parent);
@@ -340,6 +378,7 @@ exit(void)
   panic("zombie exit");
 }
 
+<<<<<<< HEAD
 
 int checkIfThreadsComplete(struct proc * process){
   struct proc * p;
@@ -350,6 +389,8 @@ int checkIfThreadsComplete(struct proc * process){
   return 1;
 }
 
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
 int
@@ -366,26 +407,36 @@ wait(void)
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->parent != curproc)
         continue;
+<<<<<<< HEAD
         // only join handles child threads
       if (p->threads == -1)
         continue;  
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
       havekids = 1;
       if(p->state == ZOMBIE){
         // Found one.
         pid = p->pid;
         kfree(p->kstack);
         p->kstack = 0;
+<<<<<<< HEAD
         if (checkIfThreadsComplete(p))
           freevm(p->pgdir);
+=======
+        freevm(p->pgdir);
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
         p->pid = 0;
         p->parent = 0;
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
+<<<<<<< HEAD
         // reset stacktop and pgdir if it is parent
         p->stacktop = -1;
         p->threads = -1;
         p->pgdir = 0;
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
         release(&ptable.lock);
         return pid;
       }
@@ -652,6 +703,7 @@ getReadCount(void)
     Read_Count_all += p->readCount;
   }
   return Read_Count_all;
+<<<<<<< HEAD
 }
 
 // thread creator function
@@ -775,4 +827,6 @@ threadWait(void){
     // Wait for children to exit.  (See wakeup1 call in proc_exit.)
     sleep(curproc, &ptable.lock);  //DOC: wait-sleep
   }
+=======
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 }

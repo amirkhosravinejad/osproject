@@ -23,12 +23,17 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+<<<<<<< HEAD
 // new system calls
 int getProcCount(void);
 int getReadCount(void);
 int threadCreate(void * stack, int status);
 int threadWait(void);
 int threadCreator(void (*fn) (void *), void*, int);
+=======
+int getProcCount(void);
+int getReadCount(void);
+>>>>>>> 6050a187b4fbc68bf427816d3199acd9b6971516
 
 // ulib.c
 int stat(const char*, struct stat*);
